@@ -1,0 +1,159 @@
+
+<div>
+  <div calss="row">
+    <div ng-class="{'col-md-10 col-xs-offset-1': !cdpDetalle.formVisibility, 'col-md-5 col-xs-offset-1': cdpDetalle.formVisibility}">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <div class="panel-title">
+            Detalle del CDP
+          </div>
+        </div>
+        <div class="panel-body">
+          <div class="col-md-10 col-md-offset-1 ">
+            <table class="table text-justify" ng-repeat="item in cdpDetalle.detalle">
+              <tr>
+                <th>Consecutivo: </th>
+                <td>{{item.NumeroDisponibilidad}}</td>
+              </tr>
+              <tr>
+                <th>Fecha de Registro: </th>
+                <td>{{item.FechaRegistro | date:"yyyy-MM-dd":"+0900"}}</td>
+              </tr>
+              <tr>
+                <th>Estado: </th>
+                <td>{{item.Estado.Nombre}}</td>
+              </tr>
+              <tr>
+                <th>Dependencia Solicitante: </th>
+                <td>{{item.Solicitud.DependenciaSolicitante.Nombre}}</td>
+              </tr>
+              <tr>
+                <th>Jefe de la dependencia: </th>
+                <td>{{item.Solicitud.DependenciaSolicitante.JefeDependencia.PrimerNombre + ' ' + item.Solicitud.DependenciaSolicitante.JefeDependencia.PrimerApellido}}</td>
+              </tr>
+              <tr>
+                <th>Dependencia Destino: </th>
+                <td>{{item.Solicitud.DependenciaDestino.Nombre}}</td>
+              </tr>
+              <tr>
+                <th>Ordenador del Gasto: </th>
+                <td>{{item.Solicitud.DependenciaSolicitante.OrdenadorGasto.PrimerNombre + ' ' + item.Solicitud.DependenciaSolicitante.OrdenadorGasto.PrimerApellido}}</td>
+              </tr>
+              <tr>
+                <th>Objeto: </th>
+                <td>{{item.Solicitud.SolicitudDisponibilidad.Necesidad.Objeto}}</td>
+              </tr>
+            </table>
+            <hr>
+            <div class="col-md-3 col-md-offset-9">
+              <button type="button" class="btn btn-outline btn-danger btn-md btn-block" ng-click='cdpDetalle.ShowForm()' ng-hide="cdpDetalle.formVisibility">Anular</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-5" ng-show='cdpDetalle.formVisibility'>
+      <form class="form-ctrl">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <div class="panel-title">
+              Anulación de CDP
+            </div>
+          </div>
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-md-4">
+                <label>Motivo de la Anulación</label>
+              </div>
+              <div class="col-md-8">
+                <textarea class="form-control" id="txtMotivo" name="txtMotivo" ng-model="cdpDetalle.motivo"></textarea>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-md-4 ">
+                <label>Tipo de Anulación</label>
+              </div>
+              <div class="col-md-8">
+                <select id="slcTipoAnulacion" name="slcTipoAnulacion" class="form-control" ng-model="cdpDetalle.tipoAnulacion">
+                    <option value="P">Parcial</option>
+                  <option value="T">Total</option>
+               </select>
+              </div>
+            </div>
+            <br>
+            <div ng-hide="cdpDetalle.tipoAnulacion == 'T'" class="row">
+              <div class="col-md-4 ">
+                <label>Rubro</label>
+              </div>
+              <div class="col-md-8">
+                <input ng-model="apropiacion.Apropiacion.Rubro.Codigo" id="txtRubro" name="txtRubro" type="text" placeholder="seleccione el rubro" class="form-control input-md" required="" disabled="true">
+                <span class="help-block" ng-show="apropiacion.Apropiacion.Rubro.Codigo === null || apropiacion.Apropiacion.Rubro.Codigo === 'undefined'">Debe seleccionar el rubro en la tabla "Rubros para este CDP"</span>
+              </div>
+            </div>
+            <br>
+            <div ng-hide="cdpDetalle.tipoAnulacion == 'T' " class="row">
+              <div class="col-md-4">
+                <label class="control-label" for="txtValor">Valor de la anulación</label>
+              </div>
+              <div class="col-md-8">
+                <input id="txtValor" name="txtValor" type="text" placeholder="Valor que desea anular" class="form-control" required="" ng-model="cdpDetalle.Valor">
+              </div>
+            </div>
+            <!-- Button (Double) -->
+            <br>
+            <div class="row">
+              <div class="col-md-6 col-md-offset-6">
+                <div class="col-md-6">
+                  <button data-toggle="modal" data-target="#modalAlertas" id="btnAnular" name="btnAnular" class="btn btn-outline btn-warning btn-lg btn-block" ng-click="cdpDetalle.anular()">Anular</button>
+                </div>
+                <div class="col-md-6">
+                  <a id="btnCancelar" name="btnCancelar" class="btn btn-outline btn-primary btn-lg btn-block" ng-click='cdpDetalle.ShowForm()'>Cancelar</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</div>
+
+<div class="row">
+  <div class="col-md-10  col-md-offset-1">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <div class="panel-title">
+          Rubros para este CDP
+        </div>
+      </div>
+      <div ui-grid="cdpDetalle.gridOptions" ui-grid-selection ui-grid-auto-resize ng-style="cdpDetalle.gridHeight" class="myGrid"></div>
+    </div>
+  </div>
+</div>
+
+<div id="modalAlertas" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content" style="width: 120%;">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Alertas</h4>
+      </div>
+      <div class="modal-body">
+        <table class="table">
+          <tr ng-repeat="item in cdpDetalle.alerta_anulacion_cdp track by $index">
+            <td> {{ item }} </td>
+          </tr>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-default" data-dismiss="modal" ng-click="cdpSolicitudConsulta.actualiza_solicitudes()"> Cerrar </button>
+      </div>
+    </div>
+  </div>
+</div>

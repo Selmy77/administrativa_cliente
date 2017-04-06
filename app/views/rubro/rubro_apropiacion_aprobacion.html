@@ -1,0 +1,16 @@
+<br>
+<div class="col-md-12  col-centered ">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h2> Aprobación de Presupuesto</h2>
+    </div>
+  </div>
+  <div class="panel-body">
+    <div ng-controller='RubroRubroApropiacionAprobacionCtrl'>
+      <div ui-grid="rubroApropiacionAprobacion.gridOptions" ui-grid-selection ui-grid-cellNav ui-grid-tree-view class="myGrid"></div>
+      <div>
+        <button class="btn btn-success" ng-click="rubroApropiacionAprobacion.aprobar_celdas_editadas()">Aprobar</button>
+      </div>
+    </div>
+  </div>
+</div>

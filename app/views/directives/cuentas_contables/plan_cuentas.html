@@ -1,0 +1,38 @@
+<div class="panel panel-success panel-body">
+  <div class="panel panel-heading">
+      <h4 class="text-center panel-title page-header">{{d_planCuentas.plan_maestro.Nombre}}</h4>
+  </div>
+  <div class="row">
+
+    <treecontrol
+    class="tree-classic"
+    tree-model="d_planCuentas.plan_cuentas"
+    options="d_planCuentas.treeOptions"
+    on-selection="showSelected(node);showc=true"
+    selected-node="cuentasel">
+      [{{node.Codigo}}]  {{node.Nombre}}
+    </treecontrol>
+
+  <div class="panel panel-success panel-body row" ng-show="cuentasel!=undefined && showc">
+    <h2 class="text-primary">{{cuentasel.Nombre}}</h2>
+    <p class="text-muted">{{cuentasel.Descripcion}}</p>
+    <dl>
+      <dt>Codigo: {{cuentasel.Codigo}}</dt>
+      <dd>- Clasificación : {{cuentasel.NivelClasificacion.Nombre}}</dd>
+      <dd>- Naturaleza : {{cuentasel.Naturaleza | date:'d-MMMM-yyyy'}}</dd>
+
+    </dl>
+    <div class="col-md-3 col-md-offset-6">
+      <a class="btn btn-outline btn-primary btn-sm btn-block" href="#/conceptos/concepto/{{cuentasel.Codigo}}" onclick="window.open(this.href, '', 'resizable=yes,status=no,location=center,toolbar=no,menubar=no,fullscreen=yes,scrollbars=yes,dependent=no,width=1150,height=1600'); return false;">ver</a>
+    </div>
+    <div class="col-md-3">
+      <input class="btn btn-outline btn-success btn-sm btn-block" ng-click="d_planCuentas.seleccionar_cuenta(cuentasel)" value="Seleccionar">
+    </div>
+  </div>
+</div>
+
+<div class="panel-footer">
+  <center><button class="btn btn-default" ng-click="seleccion={}; showc=false">Cancelar Selección</button></center>
+</div>
+
+</div>

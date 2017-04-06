@@ -1,0 +1,60 @@
+<br>
+<div class="jumbotron text-center" >
+<h2>Datos de la solicitud de Disponibilidad</h2>
+	<div ng-repeat="item in data">
+		<table class="table table-striped">
+			<tr>
+				<th>Solicitud N°: </th> <td>{{item.SolicitudDisponibilidad.Numero}}</td>
+			</tr>
+			<tr>
+				<th>Vigencia: </th> <td>{{item.SolicitudDisponibilidad.Vigencia}}</td>
+			</tr>
+			<tr>
+				<th>Fecha de la solicitud: </th> <td>{{item.SolicitudDisponibilidad.FechaSolicitud | date:"yyyy-MM-dd":"+0900"}}</td>
+			</tr>
+		</table>
+	<h2>Datos de la Necesidad</h2>
+		<table class="table table-striped">
+			<tr>
+				<th>Oficio N°: </th> <td>{{item.SolicitudDisponibilidad.Necesidad.Numero}}</td>
+			</tr>
+			<tr>
+				<th>Vigencia: </th> <td>{{item.SolicitudDisponibilidad.Necesidad.Vigencia}}</td>
+			</tr>
+			<tr>
+				<th>Dependencia Solicitante: </th> <td>{{item.DependenciaSolicitante.Nombre}}</td>
+			</tr>
+			<tr>
+				<th>Jefe de la dependencia: </th> <td>{{item.DependenciaSolicitante.JefeDependencia.PrimerNombre + ' ' + item.DependenciaSolicitante.JefeDependencia.PrimerApellido }}</td>
+			</tr>
+			<tr>
+				<th>Dependencia Destino: </th> <td>{{item.DependenciaDestino.Nombre}}</td>
+			</tr>
+			<tr>
+				<th>Ordenador del Gasto: </th> <td>{{item.DependenciaSolicitante.OrdenadorGasto.PrimerNombre + ' ' + item.DependenciaSolicitante.OrdenadorGasto.PrimerApellido}}</td>
+			</tr>
+			<tr>
+				<th>Unidad Ejecutora: </th> <td>{{item.SolicitudDisponibilidad.Necesidad.UnidadEjecutora}}</td>
+			</tr>
+			<tr>
+				<th>Objeto Contractual : </th> <td>{{item.SolicitudDisponibilidad.Necesidad.Objeto}}</td>
+			</tr>
+			<tr>
+				<th>Valor de la contratación: </th> <td>{{item.SolicitudDisponibilidad.Necesidad.Valor | currency}}</td>
+			</tr>
+			<tr>
+				<th>Justificacion: </th> <td>{{item.SolicitudDisponibilidad.Necesidad.Justificacion}}</td>
+			</tr>
+		</table>
+	</div>
+	<div>
+		<h2>Rubros</h2>
+		<table style="width:95%;">
+		    <tr>
+		      <td>
+		        <div ui-grid="gridOptions" ui-grid-selection class="myGrid"></div>
+		      </td>
+		    </tr>
+		</table>
+	</div>
+	<div>

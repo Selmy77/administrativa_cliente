@@ -1,0 +1,77 @@
+<div class="row">
+  <div class="col-md-6">
+    <div class="panel panel-primary">
+        <div class="panel-heading" ng-click="panelDetallePagoProveedor = !panelDetallePagoProveedor">
+            <h4>Valor del Pago <span style="float:right;" class="glyphicon glyphicon-collapse-down"></span></h4>
+        </div>
+        <div ng-show="panelDetallePagoProveedor" class="panel-body">
+
+          <div class="form-horizontal">
+            <div class="form-group">
+              <label for="tipo_documento" class="col-sm-2 control-label">Tipo Documento</label>
+              <div class="col-sm-10">
+                <select ng-model="tipoordenpago" ng-options="i.Nombre for i in d_opProveedorDetallePago.tipo_orden_pago_data" class="form-control" id="tipo_documento" required>
+                    <option value="">Seleccionar Documento</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="val_base_retencion" class="col-sm-2 control-label">Valor Base Retenciones</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="val_base_retencion" ng-model="valorbase"  ng-change="d_opProveedorDetallePago.get_valor_bruto(valorbase, iva)" placeholder="Valor Base Retenciones" ui-number-mask required/>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="iva" class="col-sm-2 control-label">% IVA</label>
+              <div class="col-sm-10">
+                <select ng-model="iva" ng-options="i.Valor for i in d_opProveedorDetallePago.iva_data"  ng-change="d_opProveedorDetallePago.get_valor_bruto(valorbase, iva)" class="form-control" id="iva" required>
+                    <option value="">Seleccionar IVA</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="valor_bruto" class="col-sm-2 control-label">Valor Bruto</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" ng-model="d_opProveedorDetallePago.ValorBruto" id="valor_bruto" placeholder="Valor Bruto" disabled ui-number-mask/>
+              </div>
+            </div>
+          </div>
+
+        </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="panel panel-success">
+        <div class="panel-heading" ng-click="panelDetallePagoProveedor = !panelDetallePagoProveedor">
+            <h4>Detalle del Pago <span style="float:right;" class="glyphicon glyphicon-collapse-down"></span></h4>
+        </div>
+        <div ng-show="panelDetallePagoProveedor" class="panel-body"  >
+          <table class="table">
+            <tr>
+              <th>Tipo Documento</th>
+              <td> <input class="input_right" style="border: none;" ng-model="tipoordenpago.Nombre" disabled="true"/></td>
+            </tr>
+            <tr>
+              <th>Valor Base Retención</th>
+              <td><input class="input_right" style="border: none;" ng-model="valorbase" ui-number-mask disabled="true"/></td>
+            </tr>
+            <tr>
+              <th>% IVA</th>
+              <td><input class="input_right" style="border: none;" ng-model="iva.Valor" ui-number-mask disabled="true"/></td>
+            </tr>
+            <tr>
+              <th>Valor IVA</th>
+              <td><input class="input_right" ng-model="d_opProveedorDetallePago.ValorIva" ui-number-mask disabled="true"/></td>
+            </tr>
+            <tr>
+              <th>Valor Bruto</th>
+              <td> <input  class="input_right" style="border: none;" ng-model="d_opProveedorDetallePago.ValorBruto" ui-number-mask disabled="true"/></td>
+            </tr>
+          </table>
+
+        </div>
+    </div>
+  </div>
+
+</div>

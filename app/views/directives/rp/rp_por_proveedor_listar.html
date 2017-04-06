@@ -1,0 +1,53 @@
+<div class="row">
+  <div class="col-md-6">
+    <div class="panel panel-primary">
+        <div class="panel-heading" ng-click="panelRp = !panelRp">
+            <h4>Seleccione RP Pertenecientes al Proveedor <span style="float:right;" class="glyphicon glyphicon-collapse-down"></span></h4>
+        </div>
+        <div ng-show="panelRp" class="panel-body"  >
+          <div ng-if="!refresh" ui-grid="d_rpPorProveedorListar.gridOptions_rp" ui-grid-selection ui-grid-auto-resize></div>
+        </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="panel panel-success">
+        <div class="panel-heading" ng-click="panelRp = !panelRp">
+            <h4>Detalle RP <span style="float:right;" class="glyphicon glyphicon-collapse-down"></span></h4>
+        </div>
+        <div ng-show="panelRp" class="panel-body"  >
+          <table class="table">
+            <tr>
+              <th>Vigencia</th>
+              <td>{{d_rpPorProveedorListar.rp_select_de_consulta[0].RegistroPresupuestal.Vigencia}}</td>
+            </tr>
+            <tr>
+              <th>Estado</th>
+              <td>{{d_rpPorProveedorListar.rp_select_de_consulta[0].RegistroPresupuestal.Estado.Nombre}}</td>
+            </tr>
+            <tr>
+              <th>Num. RP</th>
+              <td>{{d_rpPorProveedorListar.rp_select_de_consulta[0].RegistroPresupuestal.NumeroRegistroPresupuestal}}</td>
+            </tr>
+            <tr>
+              <th>Responsable</th>
+              <td>{{d_rpPorProveedorListar.rp_select_de_consulta[0].RegistroPresupuestal.Responsable}}</td>
+            </tr>
+            <tr>
+              <th>Valor RP</th>
+              <td>{{d_rpPorProveedorListar.rp_select_de_consulta[0].Valor}}</td>
+            </tr>
+            <tr>
+              <th>Número Disponibilidad Presupuestal (CDP)</th>
+              <td>{{d_rpPorProveedorListar.rp_select_de_consulta[0].DisponibilidadApropiacion.Disponibilidad.NumeroDisponibilidad}}</td>
+            </tr>
+            <tr>
+              <th>Objeto Disponibilidad</th>
+              <td>{{d_rpPorProveedorListar.rp_select_de_consulta[0].DisponibilidadApropiacion.Disponibilidad.Objeto}}</td>
+            </tr>
+          </table>
+
+        </div>
+    </div>
+  </div>
+
+</div>

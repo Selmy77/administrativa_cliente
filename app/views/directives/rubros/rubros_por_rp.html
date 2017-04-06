@@ -1,0 +1,47 @@
+<div class="row">
+  <div class="col-sm-6">
+    <div class="panel panel-primary col-sm-12">
+        <div class="panel-heading" ng-click="panelRubrosPorRp = !panelRubrosPorRp">
+            <h4>Rubros Por RP</h4>
+        </div>
+        <div ng-show="panelRubrosPorRp" class="panel-body"  >
+          <div ng-if="!refresh" ui-grid="d_rubrosPorRp.gridOptions_rubros" ui-grid-selection ui-grid-auto-resize></div>
+        </div>
+    </div>
+  </div>
+
+  <div class="col-sm-6">
+    <div class="panel panel-success col-sm-12">
+        <div class="panel-heading" ng-click="panelRubrosPorRpDetalle = !panelRubrosPorRpDetalle">
+            <h4>Detalle Rubro</h4>
+        </div>
+        <div ng-show="panelRubrosPorRpDetalle" class="panel-body"  >
+          <table class="table">
+            <tr>
+              <th>Codigo</th>
+              <td>{{rubros.Codigo}}</td>
+            </tr>
+            <tr>
+              <th>Vigencia</th>
+              <td>{{rubros.Vigencia}}</td>
+            </tr>
+            <tr>
+              <th>Descripcion</th>
+              <td>{{rubros.Descripcion}}</td>
+            </tr>
+            <tr>
+              <th>Tipo Plan</th>
+              <td>{{rubros.TipoPlan}}</td>
+            </tr>
+            <tr>
+              <th>Estado</th>
+              <td>{{rubros.Estado}}</td>
+            </tr>
+          </table>
+
+        </div>
+    </div>
+  </div>
+
+
+</div>

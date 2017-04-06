@@ -1,0 +1,191 @@
+<br>
+<div class="row">
+  <div class="col-sm-5">
+    <div class="panel panel-primary col-sm-12">
+        <div class="panel-heading" ng-click="panelBeneficiario = !panelBeneficiario; rpRegistro.mostrarBeneficiarios()">
+            <h2>Selección de Beneficiario</h2>
+        </div>
+        <div ng-show="panelBeneficiario" class="panel-body"  >
+             <lista-proveedores proveedor='rpRegistro.proveedor'/>
+
+        </div>
+    </div>
+    <div class="panel panel-primary  col-sm-12">
+        <div class="panel-heading"  ng-click="panelCdp = !panelCdp; rpRegistro.mostrarBeneficiarios()">
+            <h2>Selección de CDP</h2>
+        </div>
+        <div ng-show="panelCdp" class="panel-body panel-collapse"  >
+             <lista-cdp cdp='rpRegistro.cdp' rubros='rpRegistro.rubros'/>
+        </div>
+    </div>
+    <div class="panel panel-primary  col-sm-12">
+        <div class="panel-heading"  ng-click="panelCompr = !panelCompr">
+            <h2>Selección de Compromiso</h2>
+        </div>
+        <div ng-show="panelCompr" class="panel-body panel-collapse"  >
+             <div ui-grid="rpRegistro.gridOptions_compromiso" ui-grid-selection ui-grid-auto-resize class="myGrid" ></div>
+        </div>
+    </div>
+  </div>
+
+
+
+  <div class="panel panel-success col-sm-7">
+    <div class="panel-heading" >
+          <h2>Expedicion de RP</h2>
+    </div>
+  <div ng-show=" rpRegistro.proveedor" class="panel-body row"  >
+    <div class="col-sm-6">
+      <h3>Beneficiario</h3>
+      <table name="info_beneficiario" class="table">
+        <tbody>
+          <tr >
+             <th>
+                 Nombre:
+             </th>
+             <td>
+                 {{ rpRegistro.proveedor.NomProveedor }}
+             </td>
+           </tr>
+           <tr >
+            <th>
+                Documento:
+            </th>
+            <td>
+                {{ rpRegistro.proveedor.NumDocumento }}
+            </td>
+          </tr>
+           <tr >
+              <th>
+                  Tipo:
+              </th>
+              <td>
+                  {{ rpRegistro.proveedor.Tipopersona }}
+              </td>
+            </tr>
+        </tbody>
+
+        </table>
+    </div>
+
+    <div class="col-sm-6">
+      <h3>CDP</h3>
+      <table name="info_beneficiario" class="table">
+        <tbody>
+     <tr >
+        <th>
+            Consecutivo:
+        </th>
+        <td>
+            {{ rpRegistro.cdp.NumeroDisponibilidad }}
+        </td>
+      </tr>
+      <tr >
+         <th>
+             Objeto:
+         </th>
+         <td>
+             {{ rpRegistro.cdp.Solicitud.SolicitudDisponibilidad.Necesidad.Objeto }}
+         </td>
+       </tr>
+       <tr >
+          <th>
+              Ordenador:
+          </th>
+          <td>
+              {{
+                 rpRegistro.cdp.Solicitud.DependenciaSolicitante.OrdenadorGasto.PrimerNombre+" "+
+                 rpRegistro.cdp.Solicitud.DependenciaSolicitante.OrdenadorGasto.PrimerApellido}}
+          </td>
+        </tr>
+        </tbody>
+
+        </table>
+    </div>
+    <div class="col-sm-6">
+      <h3>Compromiso</h3>
+      <table name="info_compromiso" class="table">
+        <tbody>
+      <tr >
+         <th>
+             Vigencia:
+         </th>
+         <td>
+             {{ compromiso.Vigencia }}
+         </td>
+       </tr>
+       <tr >
+          <th>
+              Tipo Compromiso:
+          </th>
+          <td>
+              {{compromiso.TipoCompromisoTesoral.Nombre}}
+          </td>
+        </tr>
+        </tbody>
+
+        </table>
+    </div>
+    <div class="col-sm-12">
+      <form class="form-horizontal">
+        <fieldset>
+
+        <!-- Form Name -->
+        <legend>Datos del RP</legend>
+        <div class="form-group row">
+        <label for="select_rubro" class="col-sm-12 col-form-label">Rubro </label>
+        <select name="select_rubro" id="select_rubro"  ng-model="rpRegistro.selectRubro">
+          <option selected disabled selected="selected">Seleccione...</option>
+          <option ng-repeat="rubro in rpRegistro.rubros"  value="{{rubro.Id}}">{{rubro.Apropiacion.Rubro.Descripcion + ' / ' + rubro.Apropiacion.Rubro.Codigo  }}</option>
+        </select>
+        <button  id="btn_agregar_rubr" name="btn_agregar_rubr" class="btn btn-success" ng-click="rpRegistro.agregarRubro(rpRegistro.selectRubro)">Agregar</button>
+
+      </div>
+        <div class="info" ng-repeat="rubro in rpRegistro.rubros_seleccionados" >
+            <div class="form-group row">
+             <label for="codigo_rubro" class="col-sm-5 col-form-label">Rubro:  </label>
+             <div class="col-md-12">
+               <input id="codigo_rubro" name="codigo_rubro"  disabled type="text" placeholder="Codigo" class="form-control input-md" required="" value="{{rubro.Apropiacion.Rubro.Codigo + ' / ' + rubro.Apropiacion.Rubro.Descripcion}}">
+             </div>
+           </div>
+           <div class="form-group row">
+            <label for="saldo_apropiacion" class="col-sm-5 col-form-label">Saldo del CDP para esta Apropiacion:  </label>
+            <div class="col-md-6">
+              <input id="saldo_apropiacion" name="saldo_apropiacion"  disabled type="text" placeholder="Saldo" class="form-control input-md" required="" ng-model="rubro.Saldo">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-5 col-form-label" for="valor_rp">Valor RP: </label>
+            <div class="col-md-6">
+            <input id="valor_rp" name="valor_rp"  type="number" placeholder="Valor" class="form-control input-md" required="true" ng-model = "rubro.ValorAsignado">
+            </div>
+          </div>
+          <!-- Button (Double) -->
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="btn_registrar"></label>
+            <div class="col-md-8">
+              <button name="btn_quitar_rbr" class="btn btn-success" ng-click="rpRegistro.quitarRubro(rubro.Id)">Quitar</button>
+            </div>
+          </div>
+            <legend></legend>
+        </div>
+
+
+
+
+        <!-- Button (Double) -->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="btn_registrar"></label>
+          <div class="col-md-8">
+            <button id="btn_registrar" name="btn_registrar" class="btn btn-success" ng-click="rpRegistro.Registrar()">Registrar</button>
+            <button id="btn_limpiar" name="btn_limpiar" class="btn btn-danger"  ng-click="rpRegistro.limpiar()">Limpiar</button>
+          </div>
+        </div>
+
+        </fieldset>
+      </form>
+    </div>
+  </div>
+
+  </div>
+</div>

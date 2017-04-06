@@ -1,0 +1,140 @@
+<!--<pre>{{d_opProveedorVerPorId.orden_pago | json}}</pre>-->
+
+<div class="row">
+  <!--detalle Unidad Ejecutora-->
+  <div class="panel panel-success">
+      <div class="panel-heading" ng-click="panelUnidadEjecutora = !panelUnidadEjecutora">
+          <h4>Detalle Unidad Ejecutora <span style="float:right;" class="glyphicon glyphicon-collapse-down"></span></h4>
+      </div>
+      <div ng-show="panelUnidadEjecutora" class="panel-body">
+        <table class="table">
+          <tr>
+            <th>Unidad Ejecutora</th>
+            <td>{{d_opProveedorVerPorId.orden_pago[0].UnidadEjecutora.Nombre}}</td>
+          </tr>
+          <tr>
+            <th>Unidad Ejecutora Descripción</th>
+            <td>{{d_opProveedorVerPorId.orden_pago[0].UnidadEjecutora.Descripcion}}</td>
+          </tr>
+          <tr>
+            <th>Entidad</th>
+            <td>{{d_opProveedorVerPorId.orden_pago[0].UnidadEjecutora.Entidad.Nombre}}</td>
+          </tr>
+          <tr>
+            <th>Entidad Codigo</th>
+            <td>{{d_opProveedorVerPorId.orden_pago[0].UnidadEjecutora.Entidad.CodigoEntidad}}</td>
+          </tr>
+        </table>
+      </div>
+  </div>
+  <!--detalle Proveedor-->
+  <div class="panel panel-success">
+      <div class="panel-heading" ng-click="panelProveedor = !panelProveedor">
+          <h4>Detalle Proveedor <span style="float:right;" class="glyphicon glyphicon-collapse-down"></span></h4>
+      </div>
+      <div ng-show="panelProveedor" class="panel-body"  >
+        <table class="table">
+          <tr>
+            <th>Tipo Persona</th>
+            <td>{{d_opProveedorVerPorId.proveedor[0].Tipopersona}}</td>
+          </tr>
+          <tr>
+            <th>Num. Documento</th>
+            <td>{{d_opProveedorVerPorId.proveedor[0].NumDocumento}}</td>
+          </tr>
+          <tr>
+            <th>Nombre</th>
+            <td>{{d_opProveedorVerPorId.proveedor[0].NomProveedor}}</td>
+          </tr>
+          <tr>
+            <th>Dirección</th>
+            <td>{{d_opProveedorVerPorId.proveedor[0].Direccion}}</td>
+          </tr>
+          <tr>
+            <th>Teléfono</th>
+            <td>{{d_opProveedorVerPorId.proveedor[0].TelAsesor}}</td>
+          </tr>
+          <tr>
+            <th>Numero de cuenta</th>
+            <td>{{d_opProveedorVerPorId.proveedor[0].NumCuentaBancaria}}</td>
+          </tr>
+          <tr>
+            <th>Sucursal</th>
+            <td>{{d_opProveedorVerPorId.proveedor[0].NumCuentaBancaria}}</td>
+          </tr>
+          <tr>
+            <th>Tipo Cuenta</th>
+            <td>{{d_opProveedorVerPorId.proveedor[0].TipoCuentaBancaria}}</td>
+          </tr>
+        </table>
+      </div>
+  </div>
+  <!--Detalle RP-->
+  <div class="panel panel-success">
+      <div class="panel-heading" ng-click="panelRp = !panelRp">
+          <h4>Detalle RP <span style="float:right;" class="glyphicon glyphicon-collapse-down"></span></h4>
+      </div>
+      <div ng-show="panelRp" class="panel-body"  >
+        <table class="table">
+          <tr>
+            <th>Vigencia</th>
+            <td>{{d_opProveedorVerPorId.orden_pago[0].RegistroPresupuestal.Vigencia}}</td>
+          </tr>
+          <tr>
+            <th>Num. RP</th>
+            <td>{{d_opProveedorVerPorId.orden_pago[0].RegistroPresupuestal.NumeroRegistroPresupuestal}}</td>
+          </tr>
+          <tr>
+            <th>Responsable</th>
+            <td>{{d_opProveedorVerPorId.orden_pago[0].RegistroPresupuestal.Responsable}}</td>
+          </tr>
+          <tr>
+            <th>Valor RP</th>
+            <td>{{d_opProveedorVerPorId.orden_pago[0].Valor}}</td>
+          </tr>
+          <tr>
+            <th>Número Disponibilidad Presupuestal (CDP)</th>
+            <td>{{d_opProveedorVerPorId.orden_pago[0].DisponibilidadApropiacion.Disponibilidad.NumeroDisponibilidad}}</td>
+          </tr>
+          <tr>
+            <th>Objeto Disponibilidad</th>
+            <td>{{d_opProveedorVerPorId.orden_pago[0].DisponibilidadApropiacion.Disponibilidad.Objeto}}</td>
+          </tr>
+        </table>
+      </div>
+  </div>
+  <!--Valor del Pago-->
+  <div class="panel panel-success">
+      <div class="panel-heading" ng-click="panelDetallePagoProveedor = !panelDetallePagoProveedor">
+          <h4>Detalle del Pago <span style="float:right;" class="glyphicon glyphicon-collapse-down"></span></h4>
+      </div>
+      <div ng-show="panelDetallePagoProveedor" class="panel-body"  >
+        <table class="table">
+          <tr>
+            <th>Tipo Documento</th>
+            <td> <input class="input_right" style="border: none;" ng-model="d_opProveedorVerPorId.orden_pago[0].TipoOrdenPago.Nombre" disabled="true"/></td>
+          </tr>
+          <tr>
+            <th>Valor Base Retención</th>
+            <td><input class="input_right" style="border: none;" ng-model="d_opProveedorVerPorId.orden_pago[0].ValorBase" ui-number-mask disabled="true"/></td>
+          </tr>
+          <tr>
+            <th>% IVA</th>
+            <td><input class="input_right" style="border: none;" ng-model="d_opProveedorVerPorId.orden_pago[0].Iva.Valor" ui-number-mask disabled="true"/></td>
+          </tr>
+          <tr>
+            <th>Valor IVA</th>
+            <td><input class="input_right" ng-model="d_opProveedorVerPorId.ValorIva" ui-number-mask disabled="true"/></td>
+          </tr>
+          <tr>
+            <th>Valor Bruto</th>
+            <td> <input  class="input_right" style="border: none;" ng-model="d_opProveedorVerPorId.ValorBruto" ui-number-mask disabled="true"/></td>
+          </tr>
+        </table>
+
+      </div>
+  </div>
+
+
+
+</div>

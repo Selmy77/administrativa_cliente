@@ -1,0 +1,56 @@
+<div class="row">
+  <div class="col-md-6">
+    <div class="panel panel-primary">
+        <div class="panel-heading" ng-click="panelProveedor = !panelProveedor">
+            <h4>Seleccione Proveedor <span style="float:right;" class="glyphicon glyphicon-collapse-down"></span></h4>
+        </div>
+        <div ng-show="panelProveedor" class="panel-body"  >
+          <div ui-grid="d_pvListar.gridOptions_proveedor" ui-grid-selection ui-grid-auto-resize></div>
+        </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="panel panel-success">
+        <div class="panel-heading" ng-click="panelProveedor = !panelProveedor">
+            <h4>Detalle Proveedor <span style="float:right;" class="glyphicon glyphicon-collapse-down"></span></h4>
+        </div>
+        <div ng-show="panelProveedor" class="panel-body"  >
+          <table class="table">
+            <tr>
+              <th>Tipo Persona</th>
+              <td>{{proveedor.Tipopersona}}</td>
+            </tr>
+            <tr>
+              <th>Num. Documento</th>
+              <td>{{proveedor.NumDocumento}}</td>
+            </tr>
+            <tr>
+              <th>Nombre</th>
+              <td>{{proveedor.NomProveedor}}</td>
+            </tr>
+            <tr>
+              <th>Dirección</th>
+              <td>{{proveedor.Direccion}}</td>
+            </tr>
+            <tr>
+              <th>Teléfono</th>
+              <td>{{proveedor.TelAsesor}}</td>
+            </tr>
+            <tr>
+              <th>Numero de cuenta</th>
+              <td>{{proveedor.NumCuentaBancaria}}</td>
+            </tr>
+            <tr>
+              <th>Sucursal</th>
+              <td>{{proveedor.NumCuentaBancaria}}</td>
+            </tr>
+            <tr>
+              <th>Tipo Cuenta</th>
+              <td>{{proveedor.TipoCuentaBancaria}}</td>
+            </tr>
+          </table>
+
+        </div>
+    </div>
+  </div>
+</div>

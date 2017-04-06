@@ -1,0 +1,40 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3>Crear Orden de Pago para Prooveedor<h3>
+        <a class="btn btn-success" ng-href="/#/orden_pago/ver_todos">Regresar</a>
+    </div>
+    <div class="panel-body">
+      <!--unidad ejecutora -->
+      <ue-listar unidaejecutora="opCrear.OrdenPago.UnidadEjecutora"/>
+      <!--Proveedor -->
+      <pv-listar proveedor="opCrear.OrdenPagoConsulta.Proveedor"/>
+      <!--RP-->
+      <rp-por-proveedor-listar beneficiaroid="opCrear.OrdenPagoConsulta.Proveedor.Id" rpselect="opCrear.OrdenPago.RegistroPresupuestal"/>
+      <!--detalle pago -->
+      <op-proveedor-detalle-pago tipoordenpago="opCrear.OrdenPago.TipoOrdenPago" iva="opCrear.OrdenPago.Iva" valorbase="opCrear.OrdenPago.ValorBase"/>
+
+      <div class="row">
+        <div class=" col-sm-6">
+          <!--Rubros-->
+          <rubros-por-rp-seleccion-multiple rpid="opCrear.OrdenPago.RegistroPresupuestal.Id" rubros="opCrear.RubrosIds"/>
+          {{opCrear.RubrosIds}}
+        </div>
+        <div class=" col-sm-6">
+          <!--Concepto-->
+          <conceptos-por-rubros-op rubroids="opCrear.RubrosIds" conceptos="opCrear.Concepto"/>
+        </div>
+      </div>
+      <!--<pre>{{opCrear.Concepto | json }}</pre>-->
+      <div ng-repeat="c in opCrear.Concepto">
+        <movimientos-contables conceptoid="c.Id"  movimientos="opCrear.movs" monto="c.Afectacion" editable validatemov="validado"/>
+        <pre>{{opCrear.movs |json}}</pre>
+      </div>
+      <!-- <pre>{{ opCrear.OrdenPago | json}}</pre> -->
+      <!--<pre>{{opCrear.Concepto | json}}</pre>-->
+      <center><button class="btn btn-primary" ng-click="opCrear.addOpProveedor()">Registrar</button></center>
+      <!--
+      <p>resultado</p>
+      {{opCrear.resultado | json}}
+      -->
+    </div>
+</div>

@@ -1,0 +1,14 @@
+<div class="row">
+  <div class=" col-sm-12">
+    <div class="panel panel-primary">
+        <div class="panel-heading" ng-click="panelConceptosPorRubro = !panelConceptosPorRubro">
+            <h4>Seleccion Conceptos <span style="float:right;" class="glyphicon glyphicon-collapse-down"></span></h4>
+        </div>
+        <div ng-show="panelConceptosPorRubro" class="panel-body"  >
+          <div ng-if="!refresh" ui-grid="d_conceptosPorRubrosOp.gridOptions_conceptos" ui-grid-edit ui-grid-auto-resize></div>
+          <br>
+          <center><button class="btn btn-primary" ng-click="d_conceptosPorRubrosOp.igualar()">Operar Conceptos</button></center>
+        </div>
+    </div>
+    </div>
+</div>

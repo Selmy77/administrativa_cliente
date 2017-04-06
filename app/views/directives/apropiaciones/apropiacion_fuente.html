@@ -1,0 +1,14 @@
+<div class="panel panel-primary">
+     <div class="panel-heading" ng-click="panelEspecificaciones = !panelEspecificaciones">
+         <h4>Fuentes de la apropiacion: {{d_apropiacionFuente.gridOptions_apropiacion.data[0].Rubro.Descripcion}}</h4>
+     </div>
+     <div ng-show="panelEspecificaciones" class="panel-body"  >
+
+       <div class="panel-body">
+       <div class="form-group">
+     <div style="height:{{gridHeight}}" ui-grid="d_apropiacionFuente.gridOptions_fuentes_apropiacion" ui-grid-edit ui-grid-selection ui-grid-auto-resize></div>
+       </div>
+       </div>
+
+     </div>
+</div>

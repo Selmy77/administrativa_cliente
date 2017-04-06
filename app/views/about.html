@@ -1,0 +1,26 @@
+<br>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        about.
+    </div>
+    <div class="panel-body">
+        <p>
+
+
+
+          <br> <br> <br> <br>
+
+
+          <movimientos-contables conceptoid="concepto=5"  movimientos="movs" monto="montmov" editable validatemov="validado"/>
+
+<!--select * from financiera.cuenta_contable where id not in (select cuenta_hijo from financiera.estructura_cuentas where plan_cuentas!=2) and id in (select cuenta_padre from financiera.estructura_cuentas where plan_cuentas=2) order by id
+
+select a.* from financiera.cuenta_contable a left join financiera.estructura_cuentas b on a.id =b.cuenta_hijo where b.cuenta_padre=1 and b.plan_cuentas = 2 ORDER BY a.id -->
+<pre>{{movs | json}}</pre>
+
+        </p>
+    </div>
+    <div class="panel-footer">
+        Panel Footer
+    </div>
+</div>

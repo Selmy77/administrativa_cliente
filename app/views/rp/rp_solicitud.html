@@ -1,0 +1,227 @@
+<br>
+<div class="row">
+<div class="col-sm-5">
+  <div class="panel panel-success">
+      <div class="panel-heading"  ng-click="panelCdp = !panelCdp">
+          <h2>Selección de CDP
+            <span style="float:right" class="glyphicon glyphicon-chevron-down" ng-show="!panelCdp"></span>
+            <span style="float:right" class="glyphicon glyphicon-chevron-up" ng-show="panelCdp"></span>
+          </h2>
+      </div>
+      <div ng-show="panelCdp" class="panel-body panel-collapse"  >
+           <lista-cdp cdp='rpSolicitud.cdp' rubros='rpSolicitud.rubros'/>
+      </div>
+  </div>
+
+    <div class="panel panel-success class">
+        <div class="panel-heading"  ng-click="panelApro = !panelApro">
+            <h2>Selección de compromiso
+              <span style="float:right" class="glyphicon glyphicon-chevron-down" ng-show="!panelApro"></span>
+              <span style="float:right" class="glyphicon glyphicon-chevron-up" ng-show="panelApro"></span>
+            </h2>
+        </div>
+        <div ng-show="panelApro" class="panel-body panel-collapse"  >
+             <!--<div ui-grid="rpSolicitud.gridOptions_compromiso" ui-grid-selection ui-grid-auto-resize class="myGrid" ></div>-->
+                     <!--<div ui-grid="rpSolicitud.gridOptions_compromiso" ui-grid-selection ui-grid-auto-resize class="myGrid" ></div>
+                     <div ng-repeat="cdp in cdps">
+                       {{cdp.Id}}
+                     </div>-->
+                     <div ui-grid='rpSolicitud.gridOptions_compromiso' ui-grid-selection ui-grid-auto-resize class="myGrid" > </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="col-sm-7">
+
+  <div class="panel panel-success">
+    <div class="panel-heading" >
+          <h2>Solicitud de RP</h2>
+    </div>
+  <div ng-show=" rpSolicitud.proveedor" class="panel-body row"  >
+    <div class="col-sm-6">
+      <h3>Beneficiario</h3>
+      <table name="info_beneficiario" class="table">
+        <tbody>
+          <tr >
+             <th>
+                 Nombre:
+             </th>
+             <td>
+                 {{rpSolicitud.Nombre}}
+             </td>
+           </tr>
+           <tr >
+            <th>
+                Documento:
+            </th>
+            <td>
+                {{rpSolicitud.Documento}}
+            </td>
+          </tr>
+        </tbody>
+
+        </table>
+    </div>
+
+    <div class="col-sm-6">
+      <h3>Contrato</h3>
+      <table name="info_beneficiario" class="table">
+        <tbody>
+          <tr >
+             <th>
+                 Numero contrato:
+             </th>
+             <td>
+               {{rpSolicitud.Contrato}}
+             </td>
+           </tr>
+           <tr >
+            <th>
+                Vigencia:
+            </th>
+            <td>
+              {{rpSolicitud.Vigencia}}
+            </td>
+          </tr>
+           <tr >
+              <th>
+                  Valor contrato:
+              </th>
+              <td>
+                  {{rpSolicitud.Valor | currency}}
+              </td>
+            </tr>
+        </tbody>
+
+        </table>
+    </div>
+
+    <div class="col-sm-6">
+      <h3>CDP</h3>
+      <table name="info_beneficiario" class="table">
+        <tbody>
+     <tr >
+        <th>
+            Consecutivo:
+        </th>
+        <td>
+            {{rpSolicitud.cdp.NumeroDisponibilidad}}
+        </td>
+      </tr>
+      <tr >
+         <th>
+             Objeto:
+         </th>
+         <td>
+             {{rpSolicitud.cdp.Solicitud.SolicitudDisponibilidad.Necesidad.Objeto}}
+         </td>
+       </tr>
+       <tr >
+          <th>
+              Ordenador:
+          </th>
+          <td>
+              {{
+                 rpSolicitud.cdp.Solicitud.DependenciaSolicitante.OrdenadorGasto.PrimerNombre+" "+
+                 rpSolicitud.cdp.Solicitud.DependenciaSolicitante.OrdenadorGasto.PrimerApellido}}
+          </td>
+        </tr>
+        </tbody>
+
+        </table>
+    </div>
+    <div class="col-sm-6">
+      <h3>Compromiso</h3>
+      <table name="info_compromiso" class="table">
+        <tbody>
+          <tr >
+             <th>
+                 Vigencia:
+             </th>
+             <td>
+                 {{rpSolicitud.compromiso.Id}}
+             </td>
+           </tr>
+      <tr >
+         <th>
+             Vigencia:
+         </th>
+         <td>
+             {{rpSolicitud.compromiso.Vigencia}}
+         </td>
+       </tr>
+       <tr >
+          <th>
+              Tipo Compromiso:
+          </th>
+          <td>
+              {{rpSolicitud.compromiso.TipoCompromisoTesoral.Nombre}}
+          </td>
+        </tr>
+        </tbody>
+
+        </table>
+    </div>
+    <div class="col-sm-12">
+      <form class="form-horizontal">
+        <fieldset>
+
+        <legend>Datos del RP</legend>
+        <div class="form-group row">
+        <label for="select_rubro" class="col-sm-12 col-form-label">Rubro </label>
+        <select name="select_rubro" id="select_rubro"  ng-model="rpSolicitud.selectRubro">
+          <option selected disabled selected="selected">Seleccione...</option>
+          <option ng-repeat="rubro in rpSolicitud.rubros"  value="{{rubro.Id}}">{{rubro.Apropiacion.Rubro.Descripcion + ' / ' + rubro.Apropiacion.Rubro.Codigo  }}</option>
+        </select>
+        <button  id="btn_agregar_rubr" name="btn_agregar_rubr" class="btn btn-success" ng-click="rpSolicitud.agregarRubro(rpSolicitud.selectRubro)">Agregar</button>
+
+      </div>
+        <div class="info" ng-repeat="rubro in rpSolicitud.rubros_seleccionados" >
+            <div class="form-group row">
+             <label for="codigo_rubro" class="col-sm-5 col-form-label">Rubro:  </label>
+             <div class="col-md-12">
+               <input id="codigo_rubro" name="codigo_rubro"  disabled type="text" placeholder="Codigo" class="form-control input-md" required="" value="{{rubro.Apropiacion.Rubro.Codigo + ' / ' + rubro.Apropiacion.Rubro.Descripcion}}">
+             </div>
+           </div>
+           <div class="form-group row">
+            <label for="saldo_apropiacion" class="col-sm-5 col-form-label">Saldo del CDP para esta Apropiacion:  </label>
+            <div class="col-md-6">
+              <input id="saldo_apropiacion" name="saldo_apropiacion"  disabled type="text" placeholder="Saldo" class="form-control input-md" required="" ng-model="rubro.Saldo">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-5 col-form-label" for="valor_rp">Valor RP: </label>
+            <div class="col-md-6">
+            <input id="valor_rp" name="valor_rp"  type="number" placeholder="Valor" class="form-control input-md" required="true" ng-model = "rubro.ValorAsignado">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="btn_registrar"></label>
+            <div class="col-md-8">
+              <button name="btn_quitar_rbr" class="btn btn-success" ng-click="rpSolicitud.quitarRubro(rubro.Id)">Quitar</button>
+            </div>
+          </div>
+            <legend></legend>
+        </div>
+
+
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="btn_registrar"></label>
+          <div class="col-md-8">
+            <button id="btn_registrar" name="btn_registrar" class="btn btn-success" ng-click="rpSolicitud.Registrar()">Registrar</button>
+            <button id="btn_limpiar" name="btn_limpiar" class="btn btn-danger"  ng-click="rpSolicitud.limpiar()">Limpiar</button>
+          </div>
+        </div>
+
+        </fieldset>
+      </form>
+    </div>
+  </div>
+  </div>
+
+
+</div>
+
+</div>

@@ -1,0 +1,147 @@
+<br>
+<div class="panel panel-default panel-primary container-fluid">
+  <h2 class="page-header" align="center">Compromisos</h2>
+
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Crear Categoria</h3>
+      </div>
+      <div class="panel-body">
+
+        <form name="categoria_form" ng-submit="categoria_form.$valid && crearCompromiso.crear_categoria()" novalidate>
+          <fieldset class="form-group">
+            <label for="categorianombre">Nombre: </label>
+            <input type="text" class="form-control" id="categorianombre" ng-model="crearCompromiso.nueva_categoria.Nombre" placeholder="Ingrese el nombre" required>
+            <small class="text-muted">Seleccione un nombre para la categoria...</small>
+          </fieldset>
+
+          <fieldset class="form-group">
+            <label for="descripcioncategoria">Descripción: </label>
+            <textarea class="form-control" id="descripcioncategoria" ng-model="crearCompromiso.nueva_categoria.Descripcion" placeholder="Descripcion para Categoria" rows="4"></textarea>
+          </fieldset>
+
+          <button type="submit" class="btn btn-success btn-outline">Crear</button>
+          <button type="cancel" class="btn btn-danger btn-outline" ng-click="crearCompromiso.cancelar(categoria_form)">Cancelar</button>
+        </form>
+
+        <!--{{crearCompromiso.nueva_categoria}}
+        {{crearCompromiso.categorias}}!-->
+
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Crear Tipo</h3>
+      </div>
+      <div class="panel-body">
+
+        <form name="tipo_form" ng-submit="tipo_form.$valid && crearCompromiso.crear_tipo()" novalidate>
+          <fieldset class="form-group">
+            <label for="nombretipo">Nombre:</label>
+            <input type="text" class="form-control" id="nombretipo" placeholder="ingrese el nombre del tipo" ng-model="crearCompromiso.nuevo_tipo.Nombre" required>
+            <small class="text-muted">Un tipo es una subclase de categoria.</small>
+          </fieldset>
+          <fieldset class="form-group">
+            <label for="categoriatipo">Categoria:</label>
+            <select class="form-control" id="categoriatipo"  ng-model="crearCompromiso.nuevo_tipo.CategoriaCompromiso" ng-options="cat.Nombre for cat in crearCompromiso.categorias" required>
+              <option value="">-- Seleccion Una Categoria --</option>
+            </select>
+          </fieldset>
+
+          <fieldset class="form-group">
+            <label for="descripciontipo">Descripción: </label>
+            <textarea class="form-control" id="descripciontipo" ng-model="crearCompromiso.nuevo_tipo.Descripcion" placeholder="Descripcion para Tipo" rows="4"></textarea>
+          </fieldset>
+          <div class="checkbox form-group">
+            <label for="estadotipo">
+              <input type="checkbox" id="estadotipo" ng-model="crearCompromiso.nuevo_tipo.EstadoActivo"> Activar
+            </label>
+          </div>
+
+          <button type="submit" class="btn btn-success btn-outline">Crear</button>
+          <button type="cancel" class="btn btn-danger btn-outline" ng-click="crearCompromiso.cancelar(tipo_form)">Cancelar</button>
+        </form>
+
+        <!--{{crearCompromiso.nuevo_tipo}}
+        {{crearCompromiso.tipos}}!-->
+
+      </div>
+
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Crear Compromiso</h3>
+      </div>
+      <div class="panel-body">
+
+        <form name="compromiso_form" ng-submit="compromiso_form.$valid && crearCompromiso.crear_compromiso()" novalidate>
+
+          <fieldset class="form-group">
+            <label for="vigenciacompromiso">Vigencia:</label>
+            <input type="number" class="form-control" id="vigenciacompromiso" placeholder="AAAA" ng-model="crearCompromiso.nuevo_compromiso.Vigencia" required>
+          </fieldset>
+
+          <fieldset class="form-group">
+            <label for="categoriacompromiso">Categoria:</label>
+            <select class="form-control" id="categoriacompromiso"  ng-model="crearCompromiso.nuevo_compromiso.Categoria" ng-options="cat.Nombre for cat in crearCompromiso.categorias" required>
+              <option value="">-- Seleccion Una Categoria --</option>
+            </select>
+          </fieldset>
+
+          <fieldset class="form-group">
+            <label for="compromisotipo">Tipo:</label>
+            <select class="form-control" id="compromisotipo"  ng-model="crearCompromiso.nuevo_compromiso.TipoCompromisoTesoral" ng-options="tipo.Nombre for tipo in crearCompromiso.tipos" required>
+              <option value="">-- Seleccion Un Tipo --</option>
+            </select>
+          </fieldset>
+
+          <fieldset class="form-group">
+            <label for="compromisounidad">Unidad Ejecutora:</label>
+            <select class="form-control" id="compromisounidad"  ng-model="crearCompromiso.nuevo_compromiso.UnidadEjecutora" ng-options="unidad.Nombre for unidad in crearCompromiso.unidades_ejecutoras" required>
+              <option value="">-- Seleccion Una Unidad Ejecutora --</option>
+            </select>
+          </fieldset>
+
+          <fieldset class="form-group">
+            <label for="compromisoobjeto">Objeto:</label>
+            <textarea class="form-control" id="compromisoobjeto" rows="4" ng-model="crearCompromiso.nuevo_compromiso.Objeto" required></textarea>
+            <small class="text-muted">El objeto indica directamente lo que el compromiso debe cumplir</small>
+          </fieldset>
+
+          <fieldset class="form-group">
+            <label for="compromisounidad">Estado:</label>
+            <select class="form-control" id="compromisounidad"  ng-model="crearCompromiso.nuevo_compromiso.EstadoCompromiso" ng-options="estado.Nombre for estado in crearCompromiso.estados_compromiso" required>
+              <option value="">-- Selecciona un estado inicial para el estado --</option>
+            </select>
+          </fieldset>
+
+
+          <fieldset class="form-group">
+            <label for="exampleInputPassword1">Fecha Inicio:</label>
+            <div class="input-group date" data-provide="datepicker">
+              <md-datepicker md-current-view="year" md-placeholder="Fecha" ng-model="crearCompromiso.nuevo_compromiso.FechaInicio"  required></md-datepicker>
+            </div>
+          </fieldset>
+
+          <fieldset class="form-group">
+            <label for="exampleInputPassword1">Fecha Fin:</label>
+            <div class="input-group date" data-provide="datepicker">
+              <md-datepicker md-current-view="year" md-placeholder="Fecha" ng-model="crearCompromiso.nuevo_compromiso.FechaFin"  required></md-datepicker>
+            </div>
+          </fieldset>
+
+          <button type="submit" class="btn btn-success btn-outline">Crear</button>
+          <button type="cancel" class="btn btn-danger btn-outline" ng-click="crearCompromiso.cancelar(compromiso_form)">Cancelar</button>
+        </form>
+
+        <!--{{crearCompromiso.nuevo_compromiso}}
+        {{crearCompromiso.compromisos}}!-->
+
+      </div>
+    </div>
+  </div>
+</div>

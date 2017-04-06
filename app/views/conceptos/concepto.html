@@ -1,0 +1,93 @@
+<div class="col-md-10 col-md-offset-1">
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <div class="row">
+        <div class="col-md-8">
+          <h3 class="page-header">{{concepto.v_concepto.Nombre}}</h3>
+          <span>Codigo: {{concepto.v_concepto.Codigo}}</span>
+        </div>
+
+        <div class="col-md-4" name="fechas" align="right">
+          <h3>
+          <small><span style="color: white">Concepto de {{concepto.v_concepto.TipoConcepto.Nombre}}</span> </small><br>
+          <small>Fecha Creacion: <span style="color: white">{{concepto.v_concepto.FechaCreacion | date: "yyyy-MM-dd"}}</span> </small><br>
+          <small>Fecha Vencimiento: <span style="color: white">{{concepto.v_concepto.FechaExpiracion | date: "yyyy-MM-dd"}}</span></small>
+          </h3>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-body">
+
+      <div class="col-md-12 row line">
+        <blockquote>
+          <p>
+            {{concepto.v_concepto.Descripcion}}
+          </p>
+        </blockquote>
+      </div>
+
+      <div class="col-md-12 row line">
+        <div class="col-md-2">
+          <label><h5>Afectacion:<h5></label>
+        </div>
+        <div class="col-md-10">
+
+          <table class="table table-bordered table-responsive table-hover">
+
+            <tr>
+              <td>Tipo Afectacion</td>
+              <td>Ingreso</td>
+              <td>Egreso</td>
+            </tr>
+            <tr ng-repeat="tipo_afect in concepto.afectaciones">
+              <td>{{tipo_afect.TipoAfectacion.Nombre}}</td>
+              <td><input ng-model="tipo_afect.AfectacionIngreso" type="checkbox" disabled></td>
+              <td><input ng-model="tipo_afect.AfectacionEgreso" type="checkbox" disabled></td>
+            </tr>
+
+          </table>
+        </div>
+      </div>
+
+      <div class="col-md-12 row line" ng-if="crearConcepto.tipo_concepto.Nombre!='Ingreso'">
+        <div class="col-md-2">
+          <label><h5>Rubro:<h5></label>
+        </div>
+
+        <div class="panel panel-info panel-body col-md-10">
+          <h4 class="text-primary">{{concepto.v_concepto.Rubro.Descripcion}}</h4>
+          <p class="text-muted">{{concepto.v_concepto.Rubro.Entidad.Nombre}}</p>
+          <dl>
+            <dt>Codigo: {{concepto.v_concepto.Rubro.Codigo}}</dt>
+            <dd>- Vigencia : {{concepto.v_concepto.Rubro.Vigencia}}</dd>
+
+          </dl>
+
+
+        </div>
+
+      </div>
+
+      <div class="col-md-12 row line" ng-if="crearConcepto.tipo_concepto.Nombre!='Ingreso'">
+        <div class="col-md-2">
+          <label><h5>Cuentas:<h5></label>
+        </div>
+
+        <div class="panel panel-warning panel-body col-md-10">
+          <center>Aqui Las Cuentas!</center>
+        </div>
+
+      </div>
+
+
+    </div>
+    <div class="panel-footer">
+      <!--{{concepto.afectaciones}}!-->
+    </div>
+  </div>
+
+</div>

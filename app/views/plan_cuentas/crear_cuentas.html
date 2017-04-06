@@ -1,0 +1,84 @@
+<br>
+<div class="panel panel-primary panel-body">
+  <h2 class="page-header" align="center">Plan de Cuentas Maestro</h2>
+
+
+
+
+  <div class="col-md-6">
+    <plan-cuentas filtro="filtro_padre" seleccion="crearCuentas.padre" recargar="crearCuentas.recargar_arbol"/>    
+  </div>
+
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Crear Cuenta Contable</h3>
+      </div>
+      <div class="panel-body">
+        <form name="cuentas_form" ng-submit="cuentas_form.$valid && crearCuentas.crear_cuenta()">
+
+
+          <div class="form-group">
+            <label for="clasificacioncuenta">Clasificacion:</label>
+            <select class="form-control" id="naturalezacuenta" ng-model="crearCuentas.nueva_cuenta.NivelClasificacion"  disabled required>
+              <option ng-value="crearCuentas.nivel">{{crearCuentas.nivel.Nombre}}</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+
+            <div class="col-md-6">
+              <label for="codigocuenta">Codigo Padre:</label>
+              <input class="form-control" type="text" id="codigocuenta" ng-model="crearCuentas.padre.Codigo" disabled>
+            </div>
+
+            <div class="col-md-6">
+              <label for="codigocuenta">Codigo:</label>
+              <input class="form-control" type="text" id="codigocuenta" ng-model="crearCuentas.nueva_cuenta.Codigo" placeholder="Ingresar codigo" required maxlength="{{crearCuentas.nivel.Longitud}}">
+            </div>
+
+          </div>
+
+          <div class="form-group">
+            <label for="nombrecuenta">Nombre:</label>
+            <input class="form-control" type="text" id="nombrecuenta" ng-model="crearCuentas.nueva_cuenta.Nombre" placeholder="Ingresar nombre" required>
+          </div>
+
+          <div class="form-group">
+            <label for="desccuenta">Descripcion:</label>
+            <textarea class="form-control" id="desccuenta" type="text" ng-model="crearCuentas.nueva_cuenta.Descripcion" placeholder="Ingresar Descripcion"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="naturalezacuenta">Naturaleza:</label>
+            <select class="form-control" id="naturalezacuenta" ng-model="crearCuentas.nueva_cuenta.Naturaleza" ng-options="n for n in crearCuentas.naturalezas" required>
+              <option value="" disabled selected>Selecciona una naturaleza</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="saldocuenta">Saldo:</label>
+            <input class="form-control" type="number" id="saldocuenta" ng-model="crearCuentas.nueva_cuenta.Saldo" placeholder="Ingresar saldo inicial de la cuenta">
+          </div>
+
+          <div class="form-group">
+            <label for="disponiblecuenta">Disponible:
+            <input class="form-control checkbox-inline" type="checkbox" id="disponiblecuenta" ng-model="crearCuentas.nueva_cuenta.Disponible"></label>
+          </div>
+
+          <input type="submit" class="btn btn-outline btn-success" value="Confirmar {{cuentas_form.$valid}}">
+          <button type="button" class="btn btn-danger btn-outline" name="button">Cancelar</button>
+        </form>
+
+        <!--<pre>{{crearCuentas.nueva_cuenta | json}}</pre>!-->
+
+
+
+      </div>
+    </div>
+  </div>
+
+
+
+
+</div>

@@ -1,0 +1,36 @@
+<div class="panel panel-primary" ng-show="showmovs">
+  <div class="panel-heading">
+
+    <div class="row">
+      <div class="col-md-8">
+        <span style="color: black"> Concepto: [ {{d_movimientosContables.gridOptionsMovimientos.data[0].Concepto.Codigo}} ]
+         {{d_movimientosContables.gridOptionsMovimientos.data[0].Concepto.Nombre}} </span><br>
+         <span >Rubro: [ {{d_movimientosContables.gridOptionsMovimientos.data[0].Concepto.Rubro.Codigo}} ]
+          {{d_movimientosContables.gridOptionsMovimientos.data[0].Concepto.Rubro.Descripcion}}</span>
+      </div>
+      <div class="col-md-4">
+        <div class="pull-right">
+          <span for="montomovimiento">Monto</span>
+          <input class="text-success" id="montomovimiento" type="number" ng-model="monto" ng-disabled="!editable">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="height: {{gridHeight}}px; " ui-grid="d_movimientosContables.gridOptionsMovimientos" ui-grid-auto-resize ui-grid-edit ui-grid-cellnav class="table"></div>
+  <div style="height: {{grid2Height}}px; " ui-grid="d_movimientosContables.gridOptionsMovsAcreedores" ui-grid-auto-resize ui-grid-edit ui-grid-cellnav class="table"></div>
+
+  <div class="panel-footer" align="center">
+
+    <div ng-show="validatemov" class=" text-success">
+      <span class="glyphicon glyphicon-ok-circle fa-3x" aria-hidden="true"></span>
+      <br><small>¡El principio de la partida Doble o dualidad se cumple!</small>
+    </div>
+    <div ng-show="!validatemov" class="text-danger ">
+      <span class="glyphicon glyphicon-ban-circle fa-3x" aria-hidden="true"></span>
+      <br><small>¡Recuerda que la suma de los montos debitados y de los montos acreditados debe ser la misma e igual al monto!</small>
+    </div>
+
+
+  </div>
+</div>

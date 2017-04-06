@@ -1,0 +1,14 @@
+<div class="row">
+  <div class=" col-sm-12">
+    <div class="panel panel-primary">
+        <div class="panel-heading" ng-click="panelRubrosPorRp = !panelRubrosPorRp">
+            <h4> Seleccion Rubros <span style="float:right;" class="glyphicon glyphicon-collapse-down"></span></h4>
+        </div>
+        <div ng-show="panelRubrosPorRp" class="panel-body"  >
+          <div ng-if="!refresh" ui-grid="d_rubrosPorRpSeleccionMultiple.gridOptions_rubros" ui-grid-selection ui-grid-auto-resize></div>
+          <br>
+          <center><button class="btn btn-primary" ng-click="d_rubrosPorRpSeleccionMultiple.seleccionar_rubros()">Seleccionar Rubros</button></center>
+        </div>
+    </div>
+    </div>
+</div>

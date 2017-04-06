@@ -1,0 +1,17 @@
+<div class="col-md-12 col-centered">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h2>Planeación de Presupuesto</h2>
+    </div>
+    <div class="panel-body">
+      <div ng-controller='RubroRubroApropiacionPlaneacionCtrl'>
+        <div ui-grid="rubroApropiacionPlaneacion.gridOptions_ingresos" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-tree-view class="myGrid"></div>
+        <div ui-grid="rubroApropiacionPlaneacion.gridOptions_gastos" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-tree-view class="myGrid"></div>
+        <div>
+          <button class="btn btn-success" ng-click="rubroApropiacionPlaneacion.guardar_celdas_editadas(gridApi)">Guardar</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

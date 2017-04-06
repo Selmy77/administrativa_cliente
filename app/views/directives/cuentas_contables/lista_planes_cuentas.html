@@ -1,0 +1,20 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    {{'D_PLANES_CUENTA.LISTADO_PLAN_CUENTAS' | translate }}
+  </div>
+  <div class="panel-body">
+    <div class="input-group pull-left" >
+      <div class="input-group-addon">{{'D_PLANES_CUENTA.NO_FILAS' | translate}}</div>
+      <input  class="form-control" ng-model="n_rows" type="number" style="width:6em" ng-change="auto_gridHeight(n_rows)" min="1" max="10" />
+    </div>
+    <br><br>
+    <div style="height: {{gridHeight}}px" ui-grid="d_listaPlanesCuentas.gridOptions" ui-grid-auto-resize ui-grid-selection class="grid"></div>
+        <div align="right">
+          <br>
+          <button class="btn btn-outline btn-info" type="button" >{{'BTN.VER' | translate}}</button>
+          <button ng-show="bsel" class="btn btn-outline btn-primary" type="button" ng-click="d_listaPlanesCuentas.seleccionar_plan()">{{'BTN.SELECCIONAR' | translate}}</button>
+          <button ng-show="bcancelsel" class="btn btn-outline btn-danger" type="button" ng-click="d_listaPlanesCuentas.cancelar_seleccion()">{{'BTN.CANCELAR' | translate}}</button>
+        </div>
+  </div>
+
+</div>

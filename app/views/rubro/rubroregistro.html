@@ -1,0 +1,96 @@
+<div class="col-md-5">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <div class="panel-title">Registro de Rubro</div>
+    </div>
+    <div class="panel-body">
+      <form>
+        <div class="row">
+          <div class="col-md-4">
+            <label for="select_vigencia" class="col-form-label">Vigencia </label>
+          </div>
+          <div class="col-md-7">
+            <select class="form-control" name="select_vigencia" id="select_vigencia" ng-model="rubroRegistro.selectVigencia" ng-change='rubroRegistro.actualiza_rubros()'>
+                <option selected disabled>Seleccione...</option>
+                <option ng-repeat="option in rubroRegistro.years" value="{{option}}">{{option}}</option>
+          </select>
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <input class="form-control" name="ultimo_registro" type="hidden" ng-model="rubroRegistro.ultimo_registro" disabled="true">
+          <div class="col-md-4">
+            <label for="input_codigo_padre" class="col-form-label">Código del rubro padre</label>
+          </div>
+          <div class="col-md-7">
+            <input class="form-control" name="input_codigo_padre" type="text" ng-model="rubroRegistro.codigo_padre" disabled="true">
+          </div>
+
+          <input name="input_id_padre" type="hidden" ng-model="rubroRegistro.id_padre" disabled="true">
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-md-4">
+            <label for="input_codigo" class="col-form-label">Código</label>
+          </div>
+          <div class="col-md-7">
+            <input class="form-control" name="input_codigo" type="text" ng-model="rubroRegistro.codigo_hijo" placeholder="Código">
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-md-4">
+            <label for="input_descripcion" class="col-form-label">Descripción</label>
+          </div>
+          <div class="col-md-7">
+            <textarea class="form-control" name="input_descripcion" ng-model="rubroRegistro.descripcion_hijo" placeholder="Descripción"></textarea>
+          </div>
+          <br>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-md-4">
+            <label for="input_tipo_plan" class="col-form-label">Tipo de Plan</label>
+          </div>
+          <div class="col-md-7">
+            <textarea class="form-control" name="input_tipo_plan" ng-model="rubroRegistro.tipo_plan_hijo" placeholder="Plan"></textarea>
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-md-4">
+            <label for="entidadSelect" class=" col-form-label">Entidad</label>
+          </div>
+          <div class="col-md-7">
+            <select class="form-control" name="entidadSelect" ng-model="rubroRegistro.selectEntidad">
+                  <option ng-repeat="option in rubroRegistro.entidadOptions" value="{{option.Id}}">{{option.Nombre}}</option>
+            </select>
+          </div>
+        </div>
+        <br>
+        <div class="col-md-6 col-md-offset-6">
+          <div class="col-md-6">
+            <button ng-click='rubroRegistro.quitar_padre()' class="btn btn-outline btn-warning btn-md btn-block">Quitar Padre</button>
+          </div>
+          <div class="col-md-6">
+              <button ng-click='rubroRegistro.registrar_rubro()' class="btn btn-outline btn-primary btn-md btn-block">Registrar</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div ng-if="rubroRegistro.selectVigencia" class="text-center col-md-7">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <div class="panel-title">Plan de Cuentas</div>
+    </div>
+    <div class="panel-body">
+      <div class="col-md-12">
+        <br>
+        <div ui-grid="rubroRegistro.gridOptions" ui-grid-tree-view ui-grid-auto-resize ui-grid-resize-columns class="myGrid"></div>
+        <br>
+      </div>
+    </div>
+  </div>
+</div>

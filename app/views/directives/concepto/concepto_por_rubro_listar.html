@@ -1,0 +1,46 @@
+<div class="row">
+  <div class="col-sm-6">
+    <div class="panel panel-primary col-sm-12">
+        <div class="panel-heading" ng-click="panelRubrosPorRp = !panelRubrosPorRp">
+            <h4>Seleccione Conceptos Asociados Rubro</h4>
+        </div>
+        <div ng-show="panelRubrosPorRp" class="panel-body"  >
+          <div ng-if="!refresh" ui-grid="d_conceptoPorRubroListar.gridOptions_conceptos" ui-grid-selection ui-grid-auto-resize></div>
+        </div>
+    </div>
+  </div>
+
+  <div class="col-sm-6">
+    <div class="panel panel-success col-sm-12">
+        <div class="panel-heading" ng-click="panelRubrosPorRpDetalle = !panelRubrosPorRpDetalle">
+            <h4>Detalle Concepto</h4>
+        </div>
+        <div ng-show="panelRubrosPorRpDetalle" class="panel-body"  >
+          <table class="table">
+            <tr>
+              <th>Codigo</th>
+              <td>{{concepto.Codigo}}</td>
+            </tr>
+            <tr>
+              <th>Nombre</th>
+              <td>{{concepto.Nombre}}</td>
+            </tr>
+            <tr>
+              <th>Padre</th>
+              <td>{{concepto.Cabeza}}</td>
+            </tr>
+            <tr>
+              <th>Descripción</th>
+              <td>{{concepto.Descripcion}}</td>
+            </tr>
+            <tr>
+              <th>Tipo</th>
+              <td>{{concepto.TipoConcepto.Nombre}}</td>
+            </tr>
+          </table>
+
+        </div>
+    </div>
+  </div>
+
+</div>
