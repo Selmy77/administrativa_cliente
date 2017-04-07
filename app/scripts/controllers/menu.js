@@ -141,6 +141,7 @@ angular.module('financieraClienteApp')
    };
    recorrerArbol($scope.menu_service, "");
    paths.push({padre:["","Notificaciones","Ver Notificaciones"],path:"notificaciones"});
+   paths.push({padre:["","Notificaciones","Ver Notificaciones"],path:"rp_solicitud"});
 
    $scope.$on('$routeChangeStart', function(next, current) {
      $scope.actual = $location.path();

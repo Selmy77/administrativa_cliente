@@ -16,9 +16,10 @@
          },
        templateUrl: 'views/directives/cdp/lista_cdp.html',
        controller:function($scope){
-         var self = this;
-         self.gridOptions_cdp = {
-           enableRowSelection: true,
+       var self = this;
+       self.prueba ="asdasdasXXXXXXd"
+       self.gridOptions_cdp = {
+       enableRowSelection: true,
        enableRowHeaderSelection: false,
        enableFiltering: true,
        multiSelect: false,
@@ -31,7 +32,11 @@
          {field: 'Solicitud.DependenciaSolicitante.OrdenadorGasto.Id',   displayName: 'Ordenador'},
          {field: 'Estado.Nombre', displayName : 'Estado'},
          {field: 'Solicitud.Necesidad.DependenciaSolicitante.Nombre' , displayName : 'Dependencia Solicitante'}
-       ]
+       ],
+       onRegisterApi : function( gridApi ) {
+         self.gridApi = gridApi;
+         self.gri = gridApi;
+       }
 
      };
 
@@ -48,6 +53,7 @@
 
      self.gridOptions_cdp.onRegisterApi = function(gridApi){
        //set gridApi on scope
+       $scope.rubros = [];
        self.gridApi = gridApi;
        gridApi.selection.on.rowSelectionChanged($scope,function(row){
          $scope.cdp = row.entity;
@@ -56,6 +62,8 @@
          });
          financieraRequest.get('disponibilidad_apropiacion','limit=0&query=Disponibilidad.Id:'+$scope.cdp.Id).then(function(response) {
            $scope.rubros = response.data;
+           console.log("rubross");
+           console.log($scope.rubros);
            angular.forEach($scope.rubros, function(data){
                var saldo;
                var rp = {
@@ -68,10 +76,6 @@
 
              });
          });
-
-
-
-
 
        });
      };

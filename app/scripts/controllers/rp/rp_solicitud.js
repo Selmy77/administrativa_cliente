@@ -8,7 +8,7 @@
  * Controller of the financieraClienteApp
  */
 angular.module('financieraClienteApp')
-  .controller('RpSolicitudCtrl', function ($window,rp,$scope,financieraRequest,$routeParams,argoRequest) {
+  .controller('RpSolicitudCtrl', function ($window,rp,$scope,financieraRequest,$routeParams,argoRequest,financieraMidRequest,agoraRequest) {
     var self=this;
     //self.solicitudPersonas=solicitudPersonas;
     self.Contrato = $routeParams.contrato;
@@ -16,6 +16,7 @@ angular.module('financieraClienteApp')
     self.Nombre = $routeParams.nombre;
     self.Valor = $routeParams.valor;
     self.Documento = $routeParams.documento;
+    $scope.banderaRubro = false;
   //  console.log(solicitudPersonas);
   self.CurrentDate = new Date();
     self.alertas = false;
@@ -32,12 +33,14 @@ angular.module('financieraClienteApp')
         {field: 'Id',  displayName: 'Numero' , width: '20%'},
         {field: 'Vigencia',   displayName: 'Vigencia' , width: '20%'},
         {field: 'TipoCompromisoTesoral.Nombre',   displayName: 'Tipo Compromiso', width: '60%'}
-      ]
+      ],
+      onRegisterApi : function( gridApi ) {
+        self.gridApi = gridApi;
 
+      }
     };
     financieraRequest.get('compromiso','limit=0').then(function(response) {
       self.gridOptions_compromiso.data = response.data;
-      console.log(response.data);
     });
 
     /*
@@ -141,25 +144,10 @@ angular.module('financieraClienteApp')
         self.alerta_registro_rp = ["debe seleccionar el Rubro objetivo del RP"];
       }else{
 
-        /*
-        var estado = {Id : 1};
-        var rp = {
-          UnidadEjecutora : self.cdp.UnidadEjecutora ,
-          Vigencia : self.cdp.Vigencia,
-          Responsable : self.cdp.Responsable.Id,
-          Estado : estado,
-          Beneficiario : self.proveedor.Id,
-          Compromiso: $scope.compromiso
-        };*/
         console.log(self.rp);
         for (var i = 0 ; i < self.rubros_seleccionados.length ; i++){
           self.rubros_seleccionados[i].ValorAsignado = parseFloat(self.rubros_seleccionados[i].ValorAsignado);
         }
-
-        var registro = {
-          //rp : rp,
-          rubros : self.rubros_seleccionados
-        };
 
         var SolicitudRp = {
         	Vigencia:2017,
@@ -170,21 +158,30 @@ angular.module('financieraClienteApp')
           VigenciaContrato:self.Vigencia,
           Compromiso:  self.compromiso.Id
         }
+
         argoRequest.post('solicitud_rp', SolicitudRp).then(function(response){
-        self.alerta_registro_rp = response.data;
-        angular.forEach(self.alerta_registro_rp, function(data){
+          console.log(self.rubros_seleccionados);
 
-          self.alerta = self.alerta + data + "\n";
+          for (var i = 0; i < self.rubros_seleccionados.length; i++) {
+            console.log(self.rubros_seleccionados.length+"<---");
+            var Disponibilidad_apropiacion_solicitud_rp ={
+              DisponibilidadApropiacion:self.rubros_seleccionados[i].Apropiacion.Id,
+              SolicitudRp:response.data.Id,
+              Monto : self.rubros_seleccionados[i].ValorAsignado,
+            }
 
-        });
+            console.log(Disponibilidad_apropiacion_solicitud_rp);
+              argoRequest.post('disponibilidad_apropiacion_solicitud_rp', Disponibilidad_apropiacion_solicitud_rp).then(function(responseD){
+                console.log(responseD)
+              });
+          }
+
 
         var fechaFormato= SolicitudRp.FechaSolicitud.getDay()+"/"+SolicitudRp.FechaSolicitud.getMonth()+"/"+SolicitudRp.FechaSolicitud.getFullYear();
 
         swal({
-            title: "Se inserto correctamente la solicitud del registro presupuestal con los siguientes datos:",
-           html: "<br><h4><b>Vigencia solicitud:</b></h4> "+response.data.Vigencia+"<h4><b>Fecha solicitud:</b></h4>:"+fechaFormato+
-           "<h4><b>Numero contrato:</b><h4>"+response.data.NumeroContrato+"<h4><b>Vigencia contrato:</b><h4>"+response.data.VigenciaContrato
-           +"<h4><b>Compromiso identificador:</b><h4>"+response.data.Compromiso,
+           html: "<label>Se inserto correctamente la solicitud del registro presupuestal con los siguientes datos</label><br><br><label><b>Vigencia solicitud:</b></label> "+response.data.Vigencia+"<br><label><b>Fecha solicitud:</b></label>:"+fechaFormato+
+           "<br><label><b>Numero contrato:</b></label>"+response.data.NumeroContrato+"<br><label><b>Vigencia contrato:</b></label>"+response.data.VigenciaContrato,
             type: "success",
             showCancelButton: true,
             confirmButtonColor: "#449D44",
@@ -210,7 +207,7 @@ angular.module('financieraClienteApp')
       self.gridApi = gridApi;
       gridApi.selection.on.rowSelectionChanged($scope,function(row){
         self.compromiso = row.entity;
-        console.log($self.compromiso);
+        console.log(self.compromiso);
       });
     };
   });

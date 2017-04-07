@@ -33,8 +33,11 @@ var text_es = {
     VER: "Ver",
     SELECCIONAR: "Seleccionar",
     CANCELAR: "Cancelar",
-    CONFIRMAR: "Confirmar"
-  }
+    CONFIRMAR: "Confirmar",
+    AGREGAR: "Agregar"
+  },
+  //DIRECTIVE/CUENTAS_CONTABLES/PLANES_CUENTAS
+  DATOS_RP:"Datos del RP"
 
 };
 

@@ -13,6 +13,9 @@ angular.module('financieraClienteApp')
     //self.solicitudPersonas=solicitudPersonas;
     var query;
     var bandera=false;
+    $scope.vigencias =[2017,2016];
+    $scope.vigenciaModel=null;
+
     $scope.busquedaSinResultados=false;
 
     $scope.fields = {
@@ -23,23 +26,50 @@ angular.module('financieraClienteApp')
     };
 
     self.gridOptions = {
-	      enableFiltering : true,
-	      enableSorting : true,
-	      enableRowSelection: false,
-        multiSelect: false,
-	      enableSelectAll: false,
+      enableRowSelection: true,
+      enableRowHeaderSelection: false,
+      enableSorting: true,
+      enableFiltering: true,
+      multiSelect:false,
 	      columnDefs : [
-	        {field: 'Id',  displayName: 'Numero de Contrato'},
-          {field: 'VigenciaContrato' ,  displayName: 'Vigencia de Contrato'},
-          {field: 'Contratista.NomProveedor',  displayName: 'Contratista nombre'},
-	        {field: 'Contratista.NumDocumento',  displayName: 'Contratista documento'},
-	        {field: 'ValorContrato',  displayName: 'Valor del contrato', cellFilter: 'currency'},
+	        {field: 'Id',  displayName: 'Contrato', width:"10%", cellTemplate: '<div align="center">{{row.entity.Id}}</div>'},
+          {field: 'VigenciaContrato' ,  displayName: 'Vigencia de Contrato', visible: false},
+          {field: 'Contratista.NomProveedor',  displayName: 'Contratista nombre', width:"50%"},
+	        {field: 'Contratista.NumDocumento',  displayName: 'Contratista documento', cellTemplate: '<div align="center">{{row.entity.Contratista.NumDocumento}}</div>'},
+	        {field: 'ValorContrato',  displayName: 'Valor del contrato', cellTemplate: '<div align="right">{{row.entity.ValorContrato | currency }}</div>'},
 	      ],
 	      onRegisterApi : function( gridApi ) {
 	        self.gridApi = gridApi;
 	      }
     };
 
+
+    //1 carga los contratos con vigencia 2017 al cargar el controllador
+    var datos = JSON.stringify("VigenciaContrato:2017");
+    agoraMidRequest.post('informacion_proveedor/contratoPersona',datos).then(function(response) {
+        self.gridOptions.data = response.data;
+        if(response.data === null){
+        $scope.busquedaSinResultados=true;
+      }
+    });
+
+    //se buscan los contratos por la vigencia seleccionada
+    self.buscarContratosVigencia = function(){
+      query="";
+      if($scope.vigenciaModel !== undefined || $scope.vigenciaModel === null){
+          query=query+"VigenciaContrato:"+$scope.vigenciaModel;
+          var datos = JSON.stringify(query);
+          agoraMidRequest.post('informacion_proveedor/contratoPersona',datos).then(function(response) {
+              self.gridOptions.data = response.data;
+              if(response.data === null){
+              $scope.busquedaSinResultados=true;
+            }
+          });
+      }
+    };
+
+
+    /* filtro dependiendo del campo ingresado en la interfaz
     self.buscarContratos = function(){
       $scope.busquedaSinResultados=false;
       query="";
@@ -93,6 +123,7 @@ angular.module('financieraClienteApp')
       bandera=false;
 
     };
+    */
 
     self.mostrar_estadisticas = function(){
       var seleccion = self.gridApi.selection.getSelectedRows();
